@@ -156,7 +156,7 @@ class SphinxClient:
 		"""
 		Set searchd server host and port.
 		"""
-		assert(isinstance(host, str))
+		assert(isinstance(host, basestring))
 		if host.startswith('/'):
 			self._path = host
 			return
@@ -333,7 +333,7 @@ class SphinxClient:
 		"""
 		assert(isinstance(weights,dict))
 		for key,val in weights.items():
-			assert(isinstance(key,str))
+			assert(isinstance(key, basestring))
 			assert(isinstance(val,int))
 		self._fieldweights = weights
 
@@ -344,7 +344,7 @@ class SphinxClient:
 		"""
 		assert(isinstance(weights,dict))
 		for key,val in weights.items():
-			assert(isinstance(key,str))
+			assert(isinstance(key, basestring))
 			assert(isinstance(val,int))
 		self._indexweights = weights
 
@@ -366,7 +366,7 @@ class SphinxClient:
 		Set values set filter.
 		Only match records where 'attribute' value is in given 'values' set.
 		"""
-		assert(isinstance(attribute, str))
+		assert(isinstance(attribute, basestring))
 		assert iter(values)
 
 		for value in values:
@@ -380,7 +380,7 @@ class SphinxClient:
 		Set range filter.
 		Only match records if 'attribute' value is beetwen 'min_' and 'max_' (inclusive).
 		"""
-		assert(isinstance(attribute, str))
+		assert(isinstance(attribute, basestring))
 		assert(isinstance(min_, int))
 		assert(isinstance(max_, int))
 		assert(min_<=max_)
@@ -389,7 +389,7 @@ class SphinxClient:
 
 
 	def SetFilterFloatRange (self, attribute, min_, max_, exclude=0 ):
-		assert(isinstance(attribute,str))
+		assert(isinstance(attribute, basestring))
 		assert(isinstance(min_,float))
 		assert(isinstance(max_,float))
 		assert(min_ <= max_)
@@ -397,10 +397,10 @@ class SphinxClient:
 
 
 	def SetGeoAnchor (self, attrlat, attrlong, latitude, longitude):
-		assert(isinstance(attrlat,str))
-		assert(isinstance(attrlong,str))
-		assert(isinstance(latitude,float))
-		assert(isinstance(longitude,float))
+		assert(isinstance(attrlat, basestring))
+		assert(isinstance(attrlong, basestring))
+		assert(isinstance(latitude, float))
+		assert(isinstance(longitude, float))
 		self._anchor['attrlat'] = attrlat
 		self._anchor['attrlong'] = attrlong
 		self._anchor['lat'] = latitude
@@ -411,9 +411,9 @@ class SphinxClient:
 		"""
 		Set grouping attribute and function.
 		"""
-		assert(isinstance(attribute, str))
+		assert(isinstance(attribute, basestring))
 		assert(func in [SPH_GROUPBY_DAY, SPH_GROUPBY_WEEK, SPH_GROUPBY_MONTH, SPH_GROUPBY_YEAR, SPH_GROUPBY_ATTR, SPH_GROUPBY_ATTRPAIR] )
-		assert(isinstance(groupsort, str))
+		assert(isinstance(groupsort, basestring))
 
 		self._groupby = attribute
 		self._groupfunc = func
@@ -421,7 +421,7 @@ class SphinxClient:
 
 
 	def SetGroupDistinct (self, attribute):
-		assert(isinstance(attribute,str))
+		assert(isinstance(attribute, basestring))
 		self._groupdistinct = attribute
 
 
@@ -433,14 +433,14 @@ class SphinxClient:
 
 
 	def SetOverride (self, name, type, values):
-		assert(isinstance(name, str))
+		assert(isinstance(name, basestring))
 		assert(type in SPH_ATTR_TYPES)
 		assert(isinstance(values, dict))
 
 		self._overrides[name] = {'name': name, 'type': type, 'values': values}
 
 	def SetSelect (self, select):
-		assert(isinstance(select, str))
+		assert(isinstance(select, basestring))
 		self._select = select
 
 
@@ -495,7 +495,7 @@ class SphinxClient:
 
 		if isinstance(query,unicode):
 			query = query.encode('utf-8')
-		assert(isinstance(query,str))
+		assert(isinstance(query, basestring))
 
 		req.append(pack('>L', len(query)))
 		req.append(query)
@@ -734,8 +734,8 @@ class SphinxClient:
 			words = words.encode('utf-8')
 
 		assert(isinstance(docs, list))
-		assert(isinstance(index, str))
-		assert(isinstance(words, str))
+		assert(isinstance(index, basestring))
+		assert(isinstance(words, basestring))
 		assert(isinstance(opts, dict))
 
 		sock = self._Connect()
@@ -788,7 +788,7 @@ class SphinxClient:
 		for doc in docs:
 			if isinstance(doc,unicode):
 				doc = doc.encode('utf-8')
-			assert(isinstance(doc, str))
+			assert(isinstance(doc, basestring))
 			req.append(pack('>L', len(doc)))
 			req.append(doc)
 
